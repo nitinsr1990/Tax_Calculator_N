@@ -14,15 +14,27 @@ const mime = {
 
 function createServer(){
   return http.createServer((req, res) => {
-    const filePath = path.join(base, req.url === '/' ? '/index.html' : req.url);
-    const ext = path.extname(filePath) || '.html';
-    fs.readFile(filePath, (err, data) => {
-      if (err) {
+    const requestPath = req.url === '/' ? '/index.html' : req.url;
+    const filePath = path.join(base, requestPath);
+    const publicPath = path.join(base, 'public', requestPath);
+
+    const serveFile = (targetPath) => {
+      const ext = path.extname(targetPath) || '.html';
+      fs.readFile(targetPath, (err, data) => {
+        if (err) return false;
+        res.writeHead(200, {'Content-Type': mime[ext] || 'application/octet-stream'});
+        res.end(data);
+      });
+      return true;
+    };
+
+    fs.access(filePath, fs.constants.R_OK, (err) => {
+      if (!err) return serveFile(filePath);
+      fs.access(publicPath, fs.constants.R_OK, (err2) => {
+        if (!err2) return serveFile(publicPath);
         res.writeHead(404, {'Content-Type':'text/plain'});
-        return res.end('Not found');
-      }
-      res.writeHead(200, {'Content-Type': mime[ext] || 'application/octet-stream'});
-      res.end(data);
+        res.end('Not found');
+      });
     });
   });
 }
