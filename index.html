@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Indian Income Tax Calculator</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230366d6'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+  <div id="app" class="page-shell">
+    <div class="hero-panel">
+      <div class="hero-copy">
+        <span class="eyebrow">Indian Income Tax Calculator</span>
+        <h1>Estimate your tax for FY 2026-27</h1>
+        <p>Compare old and new regimes, track deductions, and get a clear summary before you file.</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="dashboard-grid">
+        <section id="wizard" class="panel card">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Step-by-step wizard</p>
+              <h2 id="wizard-title">Income & deductions</h2>
+            </div>
+            <div class="step-pill" id="step-pill">Step 1 of 5</div>
+          </div>
+          <div id="step-container"></div>
+          <div class="nav">
+            <button id="backBtn" class="btn secondary">Back</button>
+            <button id="nextBtn" class="btn primary">Next</button>
+          </div>
+        </section>
+
+        <aside id="results" class="panel card hidden">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Results summary</p>
+              <h2>Your tax comparison</h2>
+            </div>
+          </div>
+          <div id="results-content"></div>
+        </aside>
+      </div>
+
+      <footer class="page-footer">
+        <p>All calculations happen locally in your browser. Nothing is sent anywhere.</p>
+      </footer>
+    </div>
+  </div>
+
+  <script src="src/taxEngine.js"></script>
+  <script src="src/main.js"></script>
+</body>
+</html>
