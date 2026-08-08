@@ -115,11 +115,16 @@
       note.textContent = 'The app always calculates both regimes; this only controls the preferred highlight.';
       wrapper.appendChild(note);
     } else if (id === 'review') {
+      const optionLabels = {
+        below60: '<60',
+        '60to79': '60-79',
+        '80plus': '80+'
+      };
       const table = document.createElement('table');
       table.className = 'review-table';
       table.innerHTML = `
         <tbody>
-          <tr><th>Age category</th><td>${state.age_category}</td></tr>
+          <tr><th>Age category</th><td>${optionLabels[state.age_category] || state.age_category}</td></tr>
           <tr><th>Gross salary entered</th><td>₹${formatNumber(state.gross_income)}</td></tr>
           <tr><th>Other income entered</th><td>₹${formatNumber(state.other_income)}</td></tr>
           <tr><th>Regime preference</th><td>${state.regime_preference}</td></tr>
@@ -142,6 +147,12 @@
   }
 
   function renderToggle(label, options, selected, onChange) {
+    const optionLabels = {
+      below60: '<60',
+      '60to79': '60-79',
+      '80plus': '80+'
+    };
+
     const field = document.createElement('div');
     const title = document.createElement('div');
     title.className = 'label';
@@ -153,7 +164,7 @@
       const button = document.createElement('button');
       button.type = 'button';
       button.className = option === selected ? 'btn btn-toggle active' : 'btn btn-toggle';
-      button.textContent = option;
+      button.textContent = optionLabels[option] || option;
       button.onclick = () => onChange(option);
       row.appendChild(button);
     });
