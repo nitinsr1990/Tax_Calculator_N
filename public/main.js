@@ -279,8 +279,13 @@
     dashboardGrid.classList.add('results-hidden');
     stepPill.classList.add('hidden');
     wizardTitle.textContent = 'Results';
-    backBtn.classList.add('hidden');
+    backBtn.classList.remove('hidden');
     nextBtn.classList.add('hidden');
+    backBtn.textContent = 'Back';
+    backBtn.onclick = () => {
+      stepIndex = steps.length - 1;
+      renderStep();
+    };
 
     const takeHomeOld = Math.max(0, result.old_regime.gross_total_income - result.old_regime.final_tax_payable);
     const takeHomeNew = Math.max(0, result.new_regime.gross_total_income - result.new_regime.final_tax_payable);
